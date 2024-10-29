@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匿名掲示板</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .post { margin: 10px; padding: 10px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>匿名掲示板</h1>
+    <form id="postForm">
+        <textarea id="message" placeholder="メッセージを入力"></textarea><br>
+        <button type="submit">投稿</button>
+    </form>
+    <div id="posts"></div>
+
+    <script>
+        const posts = [];
+
+        document.getElementById('postForm').onsubmit = function(e) {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+            if (message) {
+                posts.push(message);
+                document.getElementById('message').value = '';
+                displayPosts();
+            }
+        };
+
+        function displayPosts() {
+            const postsDiv = document.getElementById('posts');
+            postsDiv.innerHTML = '';
+            posts.forEach(post => {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'post';
+                postDiv.textContent = post;
+                postsDiv.appendChild(postDiv);
+            });
+        }
+    </script>
+</body>
+</html>
